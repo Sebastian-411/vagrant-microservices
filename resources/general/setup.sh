@@ -1,37 +1,36 @@
 #!/bin/bash
 
-# Actualizar el sistema
-echo "Actualizando el sistema..."
+# Update the system
+echo "Updating the system..."
 sudo apt-get update -y
 
-# Instalar dependencias
-echo "Instalando dependencias necesarias..."
+# Install necessary dependencies
+echo "Installing required dependencies..."
 sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common
 
-# Añadir el repositorio oficial de Docker
-echo "Añadiendo el repositorio de Docker..."
+# Add the official Docker repository
+echo "Adding the Docker repository..."
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-# Instalar Docker
-echo "Instalando Docker..."
+# Install Docker
+echo "Installing Docker..."
 sudo apt-get update -y
 sudo apt-get install -y docker-ce
 
-# Añadir el usuario vagrant al grupo docker para que no necesite sudo
-echo "Añadiendo usuario 'vagrant' al grupo docker..."
+# Add the 'vagrant' user to the Docker group so it doesn't require sudo
+echo "Adding 'vagrant' user to the Docker group..."
 sudo usermod -aG docker vagrant
 
-# Verificar que Docker esté funcionando
-echo "Verificando que Docker esté funcionando..."
+# Check if Docker is working
+echo "Verifying Docker is working..."
 sudo systemctl start docker
 sudo systemctl enable docker
 docker --version
 
-
-echo "Instalación de Docker y dependencias completada."
+echo "Docker and dependencies installation completed."

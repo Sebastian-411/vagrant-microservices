@@ -1,55 +1,54 @@
 #!/bin/bash
 
-# Obtener la ruta absoluta del directorio donde se encuentra este script
+# Get the absolute path of the directory where this script is located
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Ruta absoluta del archivo .env en la carpeta del servicio
+# Absolute path of the .env file in the service folder
 ENV_FILE="$(realpath "$DIR/../resources/.env")"
 echo $ENV_FILE
 
-# Verificar que el archivo .env existe
+# Check if the .env file exists
 if [ ! -f "$ENV_FILE" ]; then
-  echo "Error: El archivo .env no existe en la carpeta del servicio ($ENV_FILE)."
+  echo "Error: The .env file does not exist in the service folder ($ENV_FILE)."
   exit 1
 fi
 
 source $ENV_FILE
 
-# Extraer la URL del repositorio desde el .env
+# Extract the repository URL from the .env file
 URL_REPO=$DOCKER_URL_REPO
 
 echo $URL_REPO
 
 if [ -z "$URL_REPO" ]; then
-  echo "Error: No se encontró la variable DOCKER_URL_REPO en el archivo .env."
+  echo "Error: DOCKER_URL_REPO variable not found in the .env file."
   exit 1
 fi
 
 if [ -z "$PORT_EXPOSE_IN" ]; then
-  echo "Error: No se encontró la variable PORT_EXPOSE_IN en el archivo .env."
+  echo "Error: PORT_EXPOSE_IN variable not found in the .env file."
   exit 1
 fi
 
 if [ -z "$PORT_EXPOSE_OUT" ]; then
-  echo "Error: No se encontró la variable PORT_EXPOSE_OUT en el archivo .env."
+  echo "Error: PORT_EXPOSE_OUT variable not found in the .env file."
   exit 1
 fi
 
-
-# Ruta del script general
+# Path to the general script
 GENERAL_SCRIPT="$(realpath "$DIR/download_image.sh")"
 
 echo $GENERAL_SCRIPT
 echo $PORT_EXPOSE_IN
 echo $PORT_EXPOSE_OUT
 
-# Verificar que el script general existe
+# Check if the general script exists
 if [ ! -f "$GENERAL_SCRIPT" ]; then
-  echo "Error: El script download_image.sh no existe en la carpeta general."
+  echo "Error: download_image.sh script does not exist in the general folder."
   exit 1
 fi
 
-# Ejecutar el script general
+# Execute the general script
 bash $GENERAL_SCRIPT "$URL_REPO" "$ENV_FILE"
 
-echo "Ejecución del contenedor exitosa."
+echo "Container execution successful."
