@@ -120,7 +120,7 @@ Las VMs se comunican a través de una red privada, asignando IPs internas para c
 ### 2. **Persistencia de Datos en las Máquinas Virtuales**
 
 - **Problema:** Las máquinas virtuales retenían datos de despliegues anteriores.
-- **Solución:** Implementación de procesos de limpieza automatizados para evitar problemas en futuros despliegues.
+- **Solución:** Implementación de procesos de limpieza para evitar problemas en futuros despliegues.
 
 ![alt text](img/image-8.png)
 
